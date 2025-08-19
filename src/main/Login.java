@@ -1,46 +1,78 @@
 package main;
 
-import java.awt.EventQueue;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLayeredPane;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
-public class Login extends JFrame {
+public class Login implements ActionListener{
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
-
+	private static JLabel user,pass,sucess;
+	private static JTextField userText, passText;
+	private static JButton loginButton;
+	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		try {
+			
+			frame.setSize(500,500);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.add(panel);
+			
+			panel.setLayout(null);
+			
+			user = new JLabel("Username: ");
+			user.setBounds(10, 20, 80, 25);
+			panel.add(user);
+			
+			userText = new JTextField();
+			userText.setBounds(100, 20, 165, 25);
+			panel.add(userText);
+			
+			pass = new JLabel("PassWord: ");
+			pass.setBounds(10, 50, 80, 25);
+			panel.add(pass);
+			
+			passText = new JPasswordField();
+			passText.setBounds(100, 50, 165, 25);
+			panel.add(passText);
+			
+			loginButton= new JButton("Login");
+			loginButton.setBounds(100, 80, 80, 25);
+			loginButton.addActionListener(new Login());
+			panel.add(loginButton);
+			
+			sucess = new JLabel("");
+			sucess.setBounds(10, 110, 300,25);
+			panel.add(sucess);
+			
+			frame.setVisible(true);
+			
+		}catch(Exception e){
+			sucess.setText(e.getMessage()); 
+		}
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String user = userText.getText();
+		String pass = passText.getText();	
 
-
-	public Login() {
-		int value = 100;
-		int widht = 900;
-		int height = 600;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(value, value, widht, height);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLayeredPane TelaDeBloqueio = new JLayeredPane();
-		TelaDeBloqueio.setBounds(0, 0, 884, 561);
-		contentPane.add(TelaDeBloqueio);
-
+		if (user.equals("João") && pass.equals("123")){
+			userText.setText("");
+			passText.setText("");
+			sucess.setText("Usuário: [" + user + "] Senha: ["+ pass +"]");
+			user = null;
+			pass = null;
+			
+		} else {
+			sucess.setText("Try again, buddy");
+			
+		}
 	}
 }
