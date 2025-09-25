@@ -68,7 +68,7 @@ public class Login implements ActionListener{
 			passText.setText("");
 			sucess.setText("Usuário: [" + user + "] Senha: ["+ pass +"]");
 			user = null;
-			pass = null;
+			pass =  null;
 			
 		} else {
 			sucess.setText("Try again, buddy");
